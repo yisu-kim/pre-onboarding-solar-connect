@@ -1,7 +1,7 @@
-import { CheckOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Itodo } from "components/todo/TodoService";
-import React from "react";
-import styled, { css } from "styled-components";
+import { CheckOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Itodo } from 'src/components/todo/TodoService';
+import React from 'react';
+import styled, { css } from 'styled-components';
 
 const Remove = styled.div`
   display: flex;

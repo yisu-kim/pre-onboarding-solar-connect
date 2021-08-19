@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { Itodo } from "components/todo/TodoService";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { PlusCircleOutlined } from '@ant-design/icons';
+import { Itodo } from 'src/components/todo/TodoService';
 
 const CircleButton = styled.button<{ open: boolean }>`
   background: #33bb77;
@@ -58,10 +58,10 @@ interface TodoCreateProps {
 const TodoCreate = ({
   nextId,
   createTodo,
-  incrementNextId
+  incrementNextId,
 }: TodoCreateProps) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const handleToggle = () => setOpen(!open);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -73,11 +73,11 @@ const TodoCreate = ({
     createTodo({
       id: nextId,
       text: value,
-      done: false
+      done: false,
     });
     incrementNextId(); // nextId 하나 증가
 
-    setValue(""); // input 초기화
+    setValue(''); // input 초기화
     setOpen(false); // open 닫기
   };
 
