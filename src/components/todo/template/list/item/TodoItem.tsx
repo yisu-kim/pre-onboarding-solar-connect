@@ -29,7 +29,7 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps) => {
     Modal.confirm({
       title: 'Todo 삭제',
       icon: <ExclamationCircleOutlined />,
-      content: `"${todo.text}"가 영구적으로 삭제 됩니다.`,
+      content: `"${todo.text}" Todo가 영구적으로 삭제 됩니다.`,
       okType: 'danger',
       okText: '삭제',
       cancelText: '취소',
