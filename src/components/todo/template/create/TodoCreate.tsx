@@ -80,7 +80,7 @@ const TodoCreate = ({
   const handleSubmit = () => {
     createTodo({
       id: nextId,
-      text: value,
+      text: value.trim(),
       dueDate: dueDate,
       done: false,
     });
@@ -93,7 +93,7 @@ const TodoCreate = ({
   const submitInfo = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // 새로고침 방지
 
-    if (value) {
+    if (value.trim()) {
       handleSubmit();
       return;
     }
