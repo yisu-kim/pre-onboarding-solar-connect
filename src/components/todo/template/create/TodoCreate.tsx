@@ -18,9 +18,7 @@ const TodoCreate = ({
 }: TodoCreateProps) => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
-  const [dueDate, setDueDate] = useState<moment.Moment | null>(
-    moment(new Date())
-  );
+  const [dueDate, setDueDate] = useState<moment.Moment | null>(null);
 
   const handleToggle = () => setOpen(!open);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
