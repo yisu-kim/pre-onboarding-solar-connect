@@ -1,8 +1,13 @@
-import { CheckOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  CheckOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined,
+} from '@ant-design/icons';
 import { Itodo } from 'src/components/todo/TodoService';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { getDateString, getDayString } from 'src/utils/date';
+import { Modal } from 'antd';
 
 const Remove = styled.div`
   display: flex;
@@ -79,6 +84,17 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps) => {
     removeTodo(todo.id);
   };
 
+  const removeConfirm = () => {
+    Modal.confirm({
+      title: 'Todo 삭제',
+      icon: <ExclamationCircleOutlined />,
+      content: 'Todo를 삭제하면 복구할 수 없습니다.',
+      okText: '삭제',
+      cancelText: '취소',
+      onOk: () => handleRemove(),
+    });
+  };
+
   return (
     <TodoItemBlock>
       <CheckCircle done={done} onClick={handleToggle}>
@@ -90,7 +106,7 @@ const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps) => {
           {`${getDayString(todo.dueDate)} ${getDateString(todo.dueDate)}`}
         </DueDate>
       )}
-      <Remove onClick={handleRemove}>
+      <Remove onClick={removeConfirm}>
         <DeleteOutlined />
       </Remove>
     </TodoItemBlock>
