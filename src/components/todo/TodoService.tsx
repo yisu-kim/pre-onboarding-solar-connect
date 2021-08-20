@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 export type Itodo = {
   id: number;
@@ -26,7 +26,13 @@ export const useTodo = () => {
   };
 
   const toggleTodo = (id: number) => {
-    //@TODO
+    const newTodoState = todoState.map((todo: Itodo): Itodo => {
+      if (todo.id === id) {
+        return { ...todo, done: !todo.done };
+      }
+      return todo;
+    });
+    setTodoState(newTodoState);
   };
 
   const removeTodo = (id: number) => {
@@ -40,14 +46,14 @@ export const useTodo = () => {
     setTodoState((prevState) =>
       prevState.concat({
         ...todo,
-        id: nextId
+        id: nextId,
       })
     );
   };
 
   const loadData = () => {
-    let data = localStorage.getItem("todos");
-    if (data === undefined) data = "";
+    let data = localStorage.getItem('todos');
+    if (data === undefined) data = '';
     initialTodos = JSON.parse(data!);
     if (initialTodos && initialTodos.length >= 1) {
       incrementNextId();
@@ -56,7 +62,7 @@ export const useTodo = () => {
   };
 
   const saveData = () => {
-    localStorage.setItem("todos", JSON.stringify(todoState));
+    localStorage.setItem('todos', JSON.stringify(todoState));
   };
 
   return {
@@ -65,6 +71,6 @@ export const useTodo = () => {
     incrementNextId,
     toggleTodo,
     removeTodo,
-    createTodo
+    createTodo,
   };
 };
