@@ -1,13 +1,61 @@
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { Modal } from 'antd';
 import {
   CheckOutlined,
   DeleteOutlined,
   ExclamationCircleOutlined,
 } from '@ant-design/icons';
-import { Itodo } from 'src/components/todo/TodoService';
-import React from 'react';
-import styled, { css } from 'styled-components';
 import { getDateString, getDayString } from 'src/utils/date';
-import { Modal } from 'antd';
+import { Itodo } from 'src/components/todo/TodoService';
+
+interface TodoItemProps {
+  toggleTodo: (id: number) => void;
+  removeTodo: (id: number) => void;
+  todo: Itodo;
+}
+
+const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps) => {
+  const done = todo.done;
+  const handleToggle = () => {
+    toggleTodo(todo.id);
+  };
+
+  const handleRemove = () => {
+    removeTodo(todo.id);
+  };
+
+  const removeConfirm = () => {
+    Modal.confirm({
+      title: 'Todo 삭제',
+      icon: <ExclamationCircleOutlined />,
+      content: `"${todo.text}"가 영구적으로 삭제 됩니다.`,
+      okType: 'danger',
+      okText: '삭제',
+      cancelText: '취소',
+      onOk: () => handleRemove(),
+    });
+  };
+
+  return (
+    <TodoItemBlock>
+      <CheckCircle done={done} onClick={handleToggle}>
+        {done && <CheckOutlined />}
+      </CheckCircle>
+      <Text done={done}>{todo.text}</Text>
+      {todo.dueDate && (
+        <DueDate>
+          {`${getDayString(todo.dueDate)} ${getDateString(todo.dueDate)}`}
+        </DueDate>
+      )}
+      <Remove onClick={removeConfirm}>
+        <DeleteOutlined />
+      </Remove>
+    </TodoItemBlock>
+  );
+};
+
+export default React.memo(TodoItem);
 
 const Remove = styled.div`
   display: flex;
@@ -67,51 +115,3 @@ const DueDate = styled.div`
   text-align: right;
   margin-right: 20px;
 `;
-
-interface TodoItemProps {
-  toggleTodo: (id: number) => void;
-  removeTodo: (id: number) => void;
-  todo: Itodo;
-}
-
-const TodoItem = ({ toggleTodo, removeTodo, todo }: TodoItemProps) => {
-  const done = todo.done;
-  const handleToggle = () => {
-    toggleTodo(todo.id);
-  };
-
-  const handleRemove = () => {
-    removeTodo(todo.id);
-  };
-
-  const removeConfirm = () => {
-    Modal.confirm({
-      title: 'Todo 삭제',
-      icon: <ExclamationCircleOutlined />,
-      content: `"${todo.text}"가 영구적으로 삭제 됩니다.`,
-      okType: 'danger',
-      okText: '삭제',
-      cancelText: '취소',
-      onOk: () => handleRemove(),
-    });
-  };
-
-  return (
-    <TodoItemBlock>
-      <CheckCircle done={done} onClick={handleToggle}>
-        {done && <CheckOutlined />}
-      </CheckCircle>
-      <Text done={done}>{todo.text}</Text>
-      {todo.dueDate && (
-        <DueDate>
-          {`${getDayString(todo.dueDate)} ${getDateString(todo.dueDate)}`}
-        </DueDate>
-      )}
-      <Remove onClick={removeConfirm}>
-        <DeleteOutlined />
-      </Remove>
-    </TodoItemBlock>
-  );
-};
-
-export default React.memo(TodoItem);

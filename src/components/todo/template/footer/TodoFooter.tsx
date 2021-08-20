@@ -1,20 +1,6 @@
-import { Itodo } from 'src/components/todo/TodoService';
 import React from 'react';
 import styled from 'styled-components';
-
-const TodoFooterBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 24px;
-  padding-bottom: 24px;
-`;
-
-const LeftText = styled.div`
-  color: #33bb77;
-  font-size: 18px;
-`;
+import { Itodo } from 'src/components/todo/TodoService';
 
 interface HooksTodoHeadProps {
   todos: Itodo[];
@@ -32,3 +18,17 @@ const Todofooter = ({ todos }: HooksTodoHeadProps) => {
 };
 
 export default React.memo(Todofooter);
+
+const TodoFooterBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 24px;
+  padding-bottom: 24px;
+`;
+
+const LeftText = styled.div`
+  color: #33bb77;
+  font-size: 18px;
+`;

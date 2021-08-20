@@ -5,56 +5,6 @@ import { DatePicker } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Itodo } from 'src/components/todo/TodoService';
 
-const CircleButton = styled.button<{ open: boolean; hasValue: boolean }>`
-  background: ${(props) => (props.hasValue ? '#33bb77' : '#a9a9a9')};
-  width: 50px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  font-size: 60px;
-  left: 50%;
-  transform: translate(50%, 0%);
-  color: white;
-  border-radius: 50%;
-  border: none;
-  outline: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const InsertFormPositioner = styled.div`
-  width: 100%;
-  border-bottom: 1px solid #eeeeee;
-`;
-
-const InsertForm = styled.form`
-  display: flex;
-  background: #eeeeee;
-  padding-left: 40px;
-  padding-top: 36px;
-  padding-right: 60px;
-  padding-bottom: 36px;
-`;
-
-const Input = styled.input`
-  padding: 12px;
-  border: 1px solid #dddddd;
-  flex: 3;
-  outline: none;
-  font-size: 21px;
-  box-sizing: border-box;
-  color: #119955;
-  &::placeholder {
-    color: #dddddd;
-    font-size: 16px;
-  }
-`;
-
-const CustomDatePicker = styled(DatePicker)`
-  flex: 1;
-`;
-
 interface TodoCreateProps {
   nextId: number;
   createTodo: (todo: Itodo) => void;
@@ -123,3 +73,53 @@ const TodoCreate = ({
 };
 
 export default React.memo(TodoCreate);
+
+const CircleButton = styled.button<{ open: boolean; hasValue: boolean }>`
+  background: ${(props) => (props.hasValue ? '#33bb77' : '#a9a9a9')};
+  width: 50px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  left: 50%;
+  transform: translate(50%, 0%);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InsertFormPositioner = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #eeeeee;
+`;
+
+const InsertForm = styled.form`
+  display: flex;
+  background: #eeeeee;
+  padding-left: 40px;
+  padding-top: 36px;
+  padding-right: 60px;
+  padding-bottom: 36px;
+`;
+
+const Input = styled.input`
+  padding: 12px;
+  border: 1px solid #dddddd;
+  flex: 3;
+  outline: none;
+  font-size: 21px;
+  box-sizing: border-box;
+  color: #119955;
+  &::placeholder {
+    color: #dddddd;
+    font-size: 16px;
+  }
+`;
+
+const CustomDatePicker = styled(DatePicker)`
+  flex: 1;
+`;
