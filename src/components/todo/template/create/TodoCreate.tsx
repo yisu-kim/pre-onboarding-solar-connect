@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { DatePicker } from 'antd';
+import { DatePicker, Modal } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Itodo } from 'src/components/todo/TodoService';
 
@@ -77,9 +77,7 @@ const TodoCreate = ({
     setValue(e.target.value);
   const handleDate = (value: moment.Moment | null) => setDueDate(value);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 새로고침 방지
-
+  const handleSubmit = () => {
     createTodo({
       id: nextId,
       text: value,
@@ -92,10 +90,25 @@ const TodoCreate = ({
     setOpen(false); // open 닫기
   };
 
+  const submitInfo = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 새로고침 방지
+
+    if (value) {
+      handleSubmit();
+      return;
+    }
+
+    Modal.info({
+      title: 'Todo 입력',
+      content: 'Todo를 입력해주세요.',
+      okText: '확인',
+    });
+  };
+
   return (
     <>
       <InsertFormPositioner>
-        <InsertForm onSubmit={handleSubmit}>
+        <InsertForm onSubmit={submitInfo}>
           <Input
             autoFocus
             placeholder="What's need to be done?"
