@@ -1,5 +1,6 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
+import { getDateString, getDayString } from 'src/utils/date';
 
 const TodoHeadBlock = styled.div`
   display: flex;
@@ -22,9 +23,8 @@ const DayText = styled.div`
 `;
 
 const TodoHead = () => {
-  //@TODO 현재 시간을 표시해야합니다.
-  const dayString = "Tuesday";
-  const dateString = "July 20, 2021";
+  const dayString = getDayString(date);
+  const dateString = getDateString(date);
 
   return (
     <TodoHeadBlock>
@@ -35,3 +35,5 @@ const TodoHead = () => {
 };
 
 export default React.memo(TodoHead);
+
+const date = new Date();
