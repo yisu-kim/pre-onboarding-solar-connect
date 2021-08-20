@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
-import { DatePicker, Modal } from 'antd';
+import { DatePicker } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Itodo } from 'src/components/todo/TodoService';
 
-const CircleButton = styled.button<{ open: boolean }>`
-  background: #33bb77;
+const CircleButton = styled.button<{ open: boolean; hasValue: boolean }>`
+  background: ${(props) => (props.hasValue ? '#33bb77' : '#a9a9a9')};
   width: 50px;
   height: 50px;
   align-items: center;
@@ -77,10 +77,17 @@ const TodoCreate = ({
     setValue(e.target.value);
   const handleDate = (value: moment.Moment | null) => setDueDate(value);
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // 새로고침 방지
+
+    const trimmed = value.trim();
+    if (!trimmed) {
+      return;
+    }
+
     createTodo({
       id: nextId,
-      text: value.trim(),
+      text: trimmed,
       dueDate: dueDate,
       done: false,
     });
@@ -90,33 +97,23 @@ const TodoCreate = ({
     setOpen(false); // open 닫기
   };
 
-  const submitInfo = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // 새로고침 방지
-
-    if (value.trim()) {
-      handleSubmit();
-      return;
-    }
-
-    Modal.info({
-      title: 'Todo 입력',
-      content: 'Todo를 입력해주세요.',
-      okText: '확인',
-    });
-  };
-
   return (
     <>
       <InsertFormPositioner>
-        <InsertForm onSubmit={submitInfo}>
+        <InsertForm onSubmit={handleSubmit}>
           <Input
             autoFocus
             placeholder="What's need to be done?"
             onChange={handleChange}
             value={value}
           />
+
           <CustomDatePicker onChange={handleDate} value={dueDate} />
-          <CircleButton onClick={handleToggle} open={open}>
+          <CircleButton
+            onClick={handleToggle}
+            open={open}
+            hasValue={!!value.trim()}
+          >
             <PlusCircleOutlined />
           </CircleButton>
         </InsertForm>
