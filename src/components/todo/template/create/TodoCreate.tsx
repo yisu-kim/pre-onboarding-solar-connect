@@ -42,6 +42,7 @@ const TodoCreate = ({
     incrementNextId(); // nextId 하나 증가
 
     setValue(''); // input 초기화
+    setDueDate(null);
     setOpen(false); // open 닫기
   };
 
